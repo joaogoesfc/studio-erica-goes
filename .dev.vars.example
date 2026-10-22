@@ -1,0 +1,4 @@
+# Copie para .dev.vars para testar localmente (npx wrangler pages dev).
+# Com CALENDAR_MOCK=1 a agenda é falsa, em memória — não precisa de Google.
+CALENDAR_MOCK=1
+ADMIN_PASSWORD=teste-local-123

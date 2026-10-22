@@ -1,0 +1,11 @@
+name = "studio-erica-goes"
+pages_build_output_dir = "public"
+compatibility_date = "2026-10-01"
+
+[vars]
+# ID da agenda "Studio Erica Goes" (Google Agenda > Configurações da agenda > Integrar agenda).
+CALENDAR_ID = ""
+
+# Segredos (NUNCA neste arquivo) — configurados com `npx wrangler pages secret put NOME`:
+#   GOOGLE_SERVICE_ACCOUNT_JSON  conteúdo do arquivo .json da conta de serviço do Google
+#   ADMIN_PASSWORD               senha do painel /admin
