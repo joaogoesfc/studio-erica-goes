@@ -25,7 +25,8 @@
   .grow { flex:1; min-width:0; }
   label.f { display:block; font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); margin:12px 0 6px; }
   input, select { width:100%; background:var(--bg); color:var(--text); border:1px solid var(--line); border-radius:12px; padding:11px 12px; font:16px Inter,sans-serif; outline:none; }
-  input:focus, select:focus { border-color:var(--rosa); }
+  textarea { width:100%; background:var(--bg); color:var(--text); border:1px solid var(--line); border-radius:12px; padding:11px 12px; font:16px/1.5 Inter,sans-serif; outline:none; resize:vertical; }
+  input:focus, select:focus, textarea:focus { border-color:var(--rosa); }
   input.cat { font-weight:700; font-size:17px; }
   .btn { border:1px solid var(--line); background:var(--card2); color:var(--text); border-radius:12px; padding:10px 14px; font:600 14px Inter,sans-serif; cursor:pointer; white-space:nowrap; }
   .btn.rosa { background:var(--rosa); color:#111; border:0; }
@@ -303,15 +304,62 @@
     return card;
   }
 
+  // ---------- aba Textos (e contato) ----------
+  function campoArea(rotulo, valor, onInput, linhas) {
+    var t = el('textarea', { rows: linhas || 3 });
+    t.value = valor;
+    t.addEventListener('input', function () { onInput(t.value); mudou(); });
+    return [el('label', { class: 'f', text: rotulo }), t];
+  }
+  function waBonito(n) {
+    var d = String(n || '').replace(/\D/g, '');
+    if (/^55\d{10,11}$/.test(d)) d = d.slice(2);
+    return d.length === 11 ? '(' + d.slice(0, 2) + ') ' + d.slice(2, 7) + '-' + d.slice(7) : d.length === 10 ? '(' + d.slice(0, 2) + ') ' + d.slice(2, 6) + '-' + d.slice(6) : d;
+  }
+  function telaTextos() {
+    var frag = document.createDocumentFragment(), T = cfg.texts, Ct = cfg.contact;
+    function secao(titulo, dica, campos) {
+      var card = el('div', { class: 'card' });
+      card.appendChild(el('h3', { text: titulo, style: 'margin:0 0 4px' }));
+      if (dica) card.appendChild(el('p', { class: 'hint', text: dica }));
+      campos.forEach(function (c) { c.forEach(function (n) { card.appendChild(n); }); });
+      frag.appendChild(card);
+    }
+    var txt = function (rotulo, k) { return campoTexto(rotulo, T[k], function (v) { T[k] = v; }); };
+    var area = function (rotulo, k, l) { return campoArea(rotulo, T[k], function (v) { T[k] = v; }, l); };
+
+    secao('Contato', 'Usados nos botões do site, na mensagem de agendamento e no Pix do sinal.', [
+      campoTexto('WhatsApp (com DDD)', waBonito(Ct.whatsapp), function (v) { Ct.whatsapp = v; }, { type: 'tel', inputmode: 'tel', placeholder: '(41) 99999-9999' }),
+      campoTexto('Chave Pix do sinal', Ct.pix, function (v) { Ct.pix = v; }),
+      campoTexto('Instagram', '@' + ((/instagram\.com\/([^/]+)/.exec(Ct.instagram) || [])[1] || ''), function (v) { Ct.instagram = v; }, { placeholder: '@seuperfil' }),
+    ]);
+    secao('Topo da página', 'A parte "em dourado" aparece logo depois do título, na mesma frase.', [
+      txt('Título', 'heroTitle'), txt('Título — parte em dourado', 'heroHighlight'), area('Frase embaixo do título', 'heroText', 3), txt('Botão', 'heroButton'),
+    ]);
+    secao('Agendamento', null, [txt('Título', 'bookTitle'), txt('Subtítulo', 'bookText')]);
+    secao('Minha história', 'Separe os parágrafos com uma linha em branco. O primeiro fica em destaque; frases curtas (como "Assim nasceu o Studio…") ficam em negrito.', [
+      txt('Etiqueta (acima do título)', 'storyLabel'), txt('Título', 'storyTitle'),
+      campoArea('Texto', (T.story || []).join('\n\n'), function (v) { T.story = v.split(/\n\s*\n/).map(function (p) { return p.trim(); }).filter(Boolean); }, 14),
+    ]);
+    secao('Outros títulos', null, [
+      txt('Galeria de fotos', 'galleryTitle'), txt('Instagram — título', 'instagramTitle'), txt('Instagram — botão', 'instagramButton'),
+      txt('Localização', 'locationTitle'), txt('Feedbacks', 'feedbackTitle'),
+    ]);
+    secao('Bloco de dúvidas (WhatsApp)', null, [
+      txt('Título', 'faqTitle'), txt('Título — parte em dourado', 'faqHighlight'), area('Frase', 'faqText', 2),
+    ]);
+    return frag;
+  }
+
   function render() {
     var y = window.scrollY;
     app.innerHTML = '';
     var tabs = el('div', { class: 'tabs' });
-    [['servicos', 'Serviços'], ['horarios', 'Horários'], ['sinal', 'Sinal']].forEach(function (t) {
+    [['servicos', 'Serviços'], ['horarios', 'Horários'], ['sinal', 'Sinal'], ['textos', 'Textos']].forEach(function (t) {
       tabs.appendChild(el('button', { class: aba === t[0] ? 'on' : '', text: t[1], onclick: function () { aba = t[0]; aberto = {}; render(); window.scrollTo(0, 0); } }));
     });
     app.appendChild(tabs);
-    app.appendChild(aba === 'servicos' ? telaServicos() : aba === 'horarios' ? telaHorarios() : telaSinal());
+    app.appendChild(aba === 'servicos' ? telaServicos() : aba === 'horarios' ? telaHorarios() : aba === 'sinal' ? telaSinal() : telaTextos());
     window.scrollTo(0, y);
   }
 

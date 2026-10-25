@@ -61,8 +61,20 @@
     : !abertos.length ? 'Datas sob consulta'
     : lista(abertos, LONGO, true) + ' • ' + lista(fechados, LONGO, true) + (fechados.length > 1 ? ' fechados' : ' fechado');
 
+  var D = window.EG_DEFAULT || {};
+  var texts = Object.assign({}, D.texts || {}, C.texts || {});
+  var contact = Object.assign({}, D.contact || {}, C.contact || {});
+  if (!texts.story || !texts.story.length) texts.story = (D.texts && D.texts.story) || [];
+
   window.EG = {
     config: C,
+    t: texts,
+    contact: contact,
+    // estilo de cada parágrafo da história: 1º em destaque; frases curtas (ex.: "Assim nasceu…") em negrito
+    storyClass: function (p, i) {
+      return i === 0 ? 'text-lg text-foreground/90 leading-relaxed font-medium'
+        : p.length <= 60 ? 'text-foreground font-semibold leading-relaxed' : 'text-muted-foreground leading-relaxed';
+    },
     services: services,
     categories: categories.length ? categories : [''],
     slotsFor: slotsFor,

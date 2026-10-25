@@ -268,5 +268,36 @@
   "low": 10,
   "high": 30,
   "limit": 40
+ },
+ "contact": {
+  "whatsapp": "5541995489467",
+  "pix": "41995489467",
+  "instagram": "https://www.instagram.com/studio.ericagoes/"
+ },
+ "texts": {
+  "heroTitle": "Elegância que começa",
+  "heroHighlight": "no olhar.",
+  "heroText": "Detalhes cuidadosamente pensados para realçar sua beleza com delicadeza, sofisticação e exclusividade.",
+  "heroButton": "Agende seu horário",
+  "bookTitle": "Agende seu horário",
+  "bookText": "Escolha o serviço e o melhor momento para você.",
+  "galleryTitle": "Nossa assinatura de beleza",
+  "storyLabel": "A Profissional",
+  "storyTitle": "Minha história ✨",
+  "story": [
+   "Eu sou a Erica, tenho 26 anos, e há 10 anos nasceu dentro de mim um sonho que nunca deixou de existir.",
+   "Aos 16 anos, comecei a dar meus primeiros passos no mundo da beleza, realizando alguns atendimentos de design de sobrancelhas. Naquela época, por diversas circunstâncias da vida, precisei interromper esse sonho. Mas, mesmo distante, ele nunca morreu dentro do meu coração.",
+   "Hoje, tenho um combustível ainda maior para continuar: meu filho, minha família e o desejo de construir algo que seja verdadeiramente meu. Com o apoio e incentivo do meu esposo, tive forças para voltar a acreditar nesse sonho, me especializar na área e, finalmente, conquistar o meu próprio espaço.",
+   "Assim nasceu o Studio Erica Goes. ✨",
+   "Hoje, cada atendimento carrega muito mais do que uma técnica. Carrega anos de espera, dedicação, renúncias, aprendizado e, principalmente, amor pelo que faço.",
+   "A cada dia busco me aperfeiçoar, aprender novas técnicas e evoluir para entregar às minhas clientes um trabalho incrível, feito com amor e dedicação."
+  ],
+  "instagramTitle": "Siga no Instagram",
+  "instagramButton": "Seguir no Instagram",
+  "locationTitle": "Localização",
+  "feedbackTitle": "Feedbacks",
+  "faqTitle": "Tem alguma",
+  "faqHighlight": "dúvida?",
+  "faqText": "Fale diretamente com a gente pelo WhatsApp. Respondemos rapidinho!"
  }
 }
