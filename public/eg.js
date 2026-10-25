@@ -6,7 +6,7 @@
   for (var w = 0; w < 7; w++) C.week[w] = C.week[w] || { slots: [] };
   C.dates = C.dates || {};
 
-  var PLACEHOLDER = 'data:image/svg+xml,' + encodeURIComponent("<svg xmlns='http://www.w3.org/2000/svg' width='440' height='540'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='#e8a39b'/><stop offset='1' stop-color='#2a1b1a'/></linearGradient></defs><rect width='100%' height='100%' fill='url(#g)'/><text x='50%' y='42%' font-size='110' text-anchor='middle' dominant-baseline='middle'>✨</text></svg>");
+  var PLACEHOLDER = 'data:image/svg+xml,' + encodeURIComponent("<svg xmlns='http://www.w3.org/2000/svg' width='440' height='540'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='#d4aa6c'/><stop offset='1' stop-color='#2a1b1a'/></linearGradient></defs><rect width='100%' height='100%' fill='url(#g)'/><text x='50%' y='42%' font-size='110' text-anchor='middle' dominant-baseline='middle'>✨</text></svg>");
 
   function duracao(m) { var h = Math.floor(m / 60), r = m % 60; return h ? h + 'h' + (r ? (r < 10 ? '0' : '') + r : '') : r + ' min'; }
   function ymd(d) { return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); }
