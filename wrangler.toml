@@ -9,3 +9,8 @@ CALENDAR_ID = "e45aff30f5f01a53b837aaac884c6e97c8870c4a60d199880a902d636f47278d@
 # Segredos (NUNCA neste arquivo) — configurados com `npx wrangler pages secret put NOME`:
 #   GOOGLE_SERVICE_ACCOUNT_JSON  conteúdo do arquivo .json da conta de serviço do Google
 #   ADMIN_PASSWORD               senha do painel /admin
+
+# Senha do painel depois que a Erica troca pelo botão "Trocar senha" (guardada embaralhada).
+[[kv_namespaces]]
+binding = "AUTH"
+id = "29b10a55c64a4126a7293a4aa4b54cb9"

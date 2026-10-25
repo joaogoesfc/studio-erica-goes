@@ -1,7 +1,52 @@
 <!DOCTYPE html>
 <html lang="pt-BR" class="scroll-smooth" style="">
   <head>
-    <meta charset="utf-8"><meta name="robots" content="noindex"><script>/* sessão do painel /admin nas chamadas da agenda */(function(){var K="eg_admin_token",f=window.fetch;function tok(){try{return localStorage.getItem(K)||sessionStorage.getItem(K)}catch(e){return null}}window.fetch=function(u,o){var url=typeof u==="string"?u:(u&&u.url)||"";var api=url.indexOf("/api/calendar")===0||url.indexOf(location.origin+"/api/calendar")===0;var t=api&&tok();if(t){o=Object.assign({},o);o.headers=Object.assign({},o.headers,{Authorization:"Bearer "+t})}return f.call(this,u,o).then(function(r){if(t&&r.status===401){try{localStorage.removeItem(K);sessionStorage.removeItem(K)}catch(e){}if(location.pathname.indexOf("/admin")===0)location.reload()}return r})}})();</script>
+    <meta charset="utf-8"><meta name="robots" content="noindex"><script>/* sessão do painel /admin nas chamadas da agenda */(function(){var K="eg_admin_token",f=window.fetch;function tok(){try{return localStorage.getItem(K)||sessionStorage.getItem(K)}catch(e){return null}}window.fetch=function(u,o){var url=typeof u==="string"?u:(u&&u.url)||"";var api=url.indexOf("/api/calendar")===0||url.indexOf(location.origin+"/api/calendar")===0;var t=api&&tok();if(t){o=Object.assign({},o);o.headers=Object.assign({},o.headers,{Authorization:"Bearer "+t})}return f.call(this,u,o).then(function(r){if(t&&r.status===401){try{localStorage.removeItem(K);sessionStorage.removeItem(K)}catch(e){}if(location.pathname.indexOf("/admin")===0)location.reload()}return r})}})();</script><script>/* botão "Trocar senha" no painel /admin (fora do app React) */(function(){
+var K="eg_admin_token",ROSA="#d9928b",btn=null,box=null;
+function store(){try{if(localStorage.getItem(K))return localStorage;if(sessionStorage.getItem(K))return sessionStorage}catch(e){}return null}
+function el(tag,css,text){var e=document.createElement(tag);if(css)e.style.cssText=css;if(text)e.textContent=text;return e}
+var INPUT="width:100%;box-sizing:border-box;margin:6px 0 14px;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:#0b0b0b;color:#f5f5f5;font:inherit;font-size:16px;outline:none";
+function campo(card,label){var l=el("label","display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#a3a3a3",label);var i=el("input",INPUT);i.type="password";i.autocomplete="new-password";card.appendChild(l);card.appendChild(i);return i}
+function fechar(){if(box){box.remove();box=null}}
+function abrir(){
+  if(box)return;
+  box=el("div","position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.72);display:flex;align-items:center;justify-content:center;padding:16px;font-family:Inter,system-ui,sans-serif");
+  var card=el("div","width:min(380px,100%);background:#141414;border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:24px;color:#f5f5f5;box-shadow:0 20px 50px -15px rgba(0,0,0,.6)");
+  card.appendChild(el("h3","margin:0 0 4px;font-size:20px;font-weight:700","Trocar senha"));
+  card.appendChild(el("p","margin:0 0 18px;font-size:13px;color:#a3a3a3","Use pelo menos 8 caracteres. Quem estiver logado em outro aparelho vai precisar entrar de novo."));
+  var atual=campo(card,"Senha atual"),nova=campo(card,"Senha nova"),conf=campo(card,"Repita a senha nova");
+  var msg=el("p","min-height:18px;margin:0 0 12px;font-size:13px;color:#f87171");card.appendChild(msg);
+  var linha=el("div","display:flex;gap:10px");
+  var cancelar=el("button","flex:1;padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:transparent;color:#d4d4d4;font:inherit;font-weight:600;cursor:pointer","Cancelar");
+  var salvar=el("button","flex:1;padding:12px;border-radius:12px;border:0;background:"+ROSA+";color:#111;font:inherit;font-weight:700;cursor:pointer","Salvar");
+  cancelar.type=salvar.type="button";cancelar.onclick=fechar;
+  box.onclick=function(e){if(e.target===box)fechar()};
+  salvar.onclick=function(){
+    msg.style.color="#f87171";
+    if(nova.value.length<8){msg.textContent="A senha nova precisa ter pelo menos 8 caracteres.";return}
+    if(nova.value!==conf.value){msg.textContent="As senhas novas não são iguais.";return}
+    var s=store();if(!s){location.reload();return}
+    salvar.disabled=true;salvar.textContent="Salvando...";msg.textContent="";
+    fetch("/api/password",{method:"POST",headers:{"Content-Type":"application/json",Authorization:"Bearer "+s.getItem(K)},
+      body:JSON.stringify({current:atual.value,next:nova.value,remember:s===localStorage})})
+    .then(function(r){return r.json().catch(function(){return{}}).then(function(j){return{ok:r.ok,status:r.status,j:j}})})
+    .then(function(x){
+      if(x.ok&&x.j.token){s.setItem(K,x.j.token);msg.style.color="#4ade80";msg.textContent="Senha alterada!";setTimeout(fechar,1400);return}
+      if(x.status===401){s.removeItem(K);location.reload();return}
+      msg.textContent=(x.j&&x.j.message)||"Não foi possível trocar a senha agora.";
+    })
+    .catch(function(){msg.textContent="Sem conexão. Tente de novo."})
+    .then(function(){salvar.disabled=false;salvar.textContent="Salvar"});
+  };
+  linha.appendChild(cancelar);linha.appendChild(salvar);card.appendChild(linha);box.appendChild(card);document.body.appendChild(box);atual.focus();
+}
+function tick(){
+  var ligado=location.pathname.indexOf("/admin")===0&&!!store();
+  if(ligado&&!btn){btn=el("button","position:fixed;right:16px;bottom:16px;z-index:9998;padding:10px 16px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:#1c1c1c;color:#f5f5f5;font:600 14px Inter,system-ui,sans-serif;box-shadow:0 8px 24px -8px rgba(0,0,0,.6);cursor:pointer","🔑 Trocar senha");btn.type="button";btn.onclick=abrir;document.body.appendChild(btn)}
+  if(btn)btn.style.display=ligado?"":"none";
+}
+document.addEventListener("DOMContentLoaded",tick);setInterval(tick,1000);
+})();</script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Studio Erica Goes | Lash &amp; Brow Designer</title>
     <meta name="description" content="Extensão de cílios e design de sobrancelhas com cuidado e profissionalismo. Agende seu horário no Studio Erica Goes.">
