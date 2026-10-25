@@ -66,8 +66,31 @@
   var contact = Object.assign({}, D.contact || {}, C.contact || {});
   if (!texts.story || !texts.story.length) texts.story = (D.texts && D.texts.story) || [];
 
+  // Comprovante do sinal: reduz a foto no celular (até 1600px, JPEG) e guarda no próprio site.
+  function enviarComprovante(file) {
+    return new Promise(function (ok, falha) {
+      var img = new Image(), url = URL.createObjectURL(file);
+      img.onerror = function () { URL.revokeObjectURL(url); falha(new Error('imagem inválida')); };
+      img.onload = function () {
+        var esc = Math.min(1, 1600 / Math.max(img.naturalWidth, img.naturalHeight));
+        var c = document.createElement('canvas');
+        c.width = Math.round(img.naturalWidth * esc); c.height = Math.round(img.naturalHeight * esc);
+        var g = c.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, c.width, c.height); g.drawImage(img, 0, 0, c.width, c.height);
+        URL.revokeObjectURL(url);
+        c.toBlob(function (blob) {
+          if (!blob) return falha(new Error('falha ao preparar a foto'));
+          fetch('/api/comprovante', { method: 'POST', headers: { 'Content-Type': 'image/jpeg' }, body: blob })
+            .then(function (r) { return r.json().then(function (j) { if (!r.ok) throw new Error(j.message || 'falha'); return j; }); })
+            .then(function (j) { ok(location.origin + j.url); }, falha);
+        }, 'image/jpeg', 0.82);
+      };
+      img.src = url;
+    });
+  }
+
   window.EG = {
     config: C,
+    enviarComprovante: enviarComprovante,
     t: texts,
     contact: contact,
     // estilo de cada parágrafo da história: 1º em destaque; frases curtas (ex.: "Assim nasceu…") em negrito
