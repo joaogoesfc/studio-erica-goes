@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ajustes · Studio Erica Goes</title>
+<link rel="icon" type="image/png" href="/assets/img/erica/icone.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<style>
+  :root { --bg:#0b0b0b; --card:#141414; --card2:#1b1b1b; --line:rgba(255,255,255,.1); --text:#f5f5f5; --muted:#a3a3a3; --rosa:#d9928b; --verde:#4ade80; --verm:#f87171; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:15px/1.45 Inter,system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
+  .wrap { max-width:640px; margin:0 auto; padding:16px 16px 120px; }
+  header { display:flex; align-items:center; gap:12px; padding:8px 0 16px; }
+  header a { color:var(--muted); text-decoration:none; font-size:14px; }
+  header h1 { font-size:20px; margin:0; flex:1; }
+  .tabs { display:flex; gap:6px; background:var(--card); border:1px solid var(--line); border-radius:14px; padding:4px; position:sticky; top:8px; z-index:5; }
+  .tabs button { flex:1; border:0; background:transparent; color:var(--muted); font:600 14px Inter,sans-serif; padding:10px 6px; border-radius:10px; cursor:pointer; }
+  .tabs button.on { background:var(--rosa); color:#111; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:18px; padding:16px; margin:16px 0; }
+  .hint { color:var(--muted); font-size:13px; margin:4px 0 12px; }
+  .row { display:flex; gap:8px; align-items:center; }
+  .grow { flex:1; min-width:0; }
+  label.f { display:block; font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); margin:12px 0 6px; }
+  input, select { width:100%; background:var(--bg); color:var(--text); border:1px solid var(--line); border-radius:12px; padding:11px 12px; font:16px Inter,sans-serif; outline:none; }
+  input:focus, select:focus { border-color:var(--rosa); }
+  input.cat { font-weight:700; font-size:17px; }
+  .btn { border:1px solid var(--line); background:var(--card2); color:var(--text); border-radius:12px; padding:10px 14px; font:600 14px Inter,sans-serif; cursor:pointer; white-space:nowrap; }
+  .btn.rosa { background:var(--rosa); color:#111; border:0; }
+  .btn.ghost { background:transparent; }
+  .btn.perigo { color:var(--verm); }
+  .btn.mini { padding:8px 10px; font-size:13px; }
+  .btn:disabled { opacity:.45; cursor:default; }
+  .add { width:100%; border-style:dashed; background:transparent; color:var(--rosa); margin-top:10px; }
+  .serv { border:1px solid var(--line); border-radius:14px; margin-top:10px; overflow:hidden; background:var(--card2); }
+  .serv-top { display:flex; gap:12px; align-items:center; padding:10px; cursor:pointer; }
+  .thumb { width:52px; height:52px; border-radius:10px; object-fit:cover; background:#2a1b1a; flex-shrink:0; }
+  .serv-nome { font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .serv-sub { color:var(--muted); font-size:13px; }
+  .serv-body { padding:0 12px 14px; border-top:1px solid var(--line); }
+  .seta { color:var(--muted); font-size:13px; }
+  .duas { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+  .acoes { display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; }
+  .dia { display:flex; justify-content:space-between; align-items:center; gap:8px; }
+  .dia h3 { margin:0; font-size:16px; }
+  .chips { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+  .chip { display:inline-flex; align-items:center; gap:6px; background:var(--card2); border:1px solid var(--line); border-radius:999px; padding:6px 6px 6px 12px; font-weight:600; font-variant-numeric:tabular-nums; }
+  .chip button { border:0; background:rgba(255,255,255,.08); color:var(--muted); width:24px; height:24px; border-radius:50%; cursor:pointer; font-size:14px; line-height:1; }
+  .novo-h { display:flex; gap:8px; margin-top:10px; }
+  .novo-h input { width:auto; flex:1; }
+  .switch { position:relative; width:52px; height:30px; flex-shrink:0; }
+  .switch input { opacity:0; width:0; height:0; position:absolute; }
+  .switch span { position:absolute; inset:0; background:#333; border-radius:999px; transition:.2s; cursor:pointer; }
+  .switch span:before { content:""; position:absolute; width:24px; height:24px; left:3px; top:3px; background:#fff; border-radius:50%; transition:.2s; }
+  .switch input:checked + span { background:var(--rosa); }
+  .switch input:checked + span:before { transform:translateX(22px); }
+  .fechado { color:var(--muted); font-size:13px; margin-top:6px; }
+  .barra { position:fixed; left:0; right:0; bottom:0; background:rgba(11,11,11,.92); backdrop-filter:blur(10px); border-top:1px solid var(--line); padding:12px 16px calc(12px + env(safe-area-inset-bottom)); z-index:10; }
+  .barra .in { max-width:640px; margin:0 auto; display:flex; gap:12px; align-items:center; }
+  .barra .msg { flex:1; font-size:13px; color:var(--muted); }
+  .barra .msg.ok { color:var(--verde); } .barra .msg.erro { color:var(--verm); }
+  .aviso { text-align:center; padding:48px 16px; color:var(--muted); }
+  .aviso a { color:var(--rosa); }
+  .exemplo { background:var(--card2); border-radius:12px; padding:12px; color:var(--muted); font-size:13px; margin-top:12px; }
+  .exemplo b { color:var(--text); }
+  .hidden { display:none !important; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header><a href="/admin">← Painel</a><h1>Ajustes do site</h1></header>
+  <div id="app"><p class="aviso">Carregando…</p></div>
+</div>
+<div class="barra hidden" id="barra"><div class="in"><span class="msg" id="msg">Nenhuma alteração.</span><button class="btn rosa" id="salvar" disabled>Salvar alterações</button></div></div>
+
+<script>
+(function () {
+  var K = 'eg_admin_token';
+  var DIAS = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
+  var ORDEM = [1, 2, 3, 4, 5, 6, 0];
+  var GAPS = [0, 10, 15, 20, 30, 40, 45, 60, 75, 90, 120];
+  var cfg = null, aba = 'servicos', aberto = {}, sujo = false;
+  var app = document.getElementById('app'), barra = document.getElementById('barra');
+  var msg = document.getElementById('msg'), btnSalvar = document.getElementById('salvar');
+
+  function token() { try { return localStorage.getItem(K) || sessionStorage.getItem(K); } catch (e) { return null; } }
+  function el(tag, attrs, kids) {
+    var e = document.createElement(tag);
+    for (var k in attrs || {}) {
+      if (k === 'text') e.textContent = attrs[k];
+      else if (k.slice(0, 2) === 'on') e.addEventListener(k.slice(2), attrs[k]);
+      else if (k === 'class') e.className = attrs[k];
+      else if (attrs[k] !== false && attrs[k] != null) e.setAttribute(k, attrs[k] === true ? '' : attrs[k]);
+    }
+    (kids || []).forEach(function (c) { if (c) e.appendChild(typeof c === 'string' ? document.createTextNode(c) : c); });
+    return e;
+  }
+  function dur(m) { var h = Math.floor(m / 60), r = m % 60; return h ? h + 'h' + (r ? (r < 10 ? '0' : '') + r : '') : r + ' min'; }
+  function brl(v) { return 'R$ ' + v; }
+  function status(t, tipo) { msg.textContent = t; msg.className = 'msg' + (tipo ? ' ' + tipo : ''); }
+  function mudou() { sujo = true; btnSalvar.disabled = false; status('Alterações não salvas.'); }
+  function mover(lista, i, d) { var j = i + d; if (j < 0 || j >= lista.length) return; var x = lista[i]; lista[i] = lista[j]; lista[j] = x; mudou(); render(); }
+  window.addEventListener('beforeunload', function (e) { if (sujo) { e.preventDefault(); e.returnValue = ''; } });
+
+  // ---------- foto: reduz no aparelho e envia ----------
+  function enviarFoto(serv, botao) {
+    var inp = el('input', { type: 'file', accept: 'image/*' });
+    inp.addEventListener('change', function () {
+      var file = inp.files && inp.files[0]; if (!file) return;
+      botao.disabled = true; botao.textContent = 'Enviando…';
+      var img = new Image(), url = URL.createObjectURL(file);
+      img.onload = function () {
+        var w = Math.min(700, img.naturalWidth), h = Math.round(img.naturalHeight * w / img.naturalWidth);
+        var c = document.createElement('canvas'); c.width = w; c.height = h;
+        c.getContext('2d').drawImage(img, 0, 0, w, h); URL.revokeObjectURL(url);
+        c.toBlob(function (blob) {
+          fetch('/api/img', { method: 'POST', headers: { 'Content-Type': 'image/jpeg', Authorization: 'Bearer ' + token() }, body: blob })
+            .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j, s: r.status }; }); })
+            .then(function (x) {
+              if (x.s === 401) return sessaoExpirou();
+              if (!x.ok) throw new Error(x.j.message || 'Falha ao enviar');
+              serv.image = x.j.url; mudou(); render();
+            })
+            .catch(function (e) { alert(e.message || 'Não foi possível enviar a foto.'); botao.disabled = false; botao.textContent = 'Trocar foto'; });
+        }, 'image/jpeg', 0.85);
+      };
+      img.onerror = function () { alert('Não consegui abrir essa imagem. Tente outra foto.'); botao.disabled = false; botao.textContent = 'Trocar foto'; };
+      img.src = url;
+    });
+    inp.click();
+  }
+
+  // ---------- campos ----------
+  function campoTexto(rotulo, valor, onInput, extra) {
+    var i = el('input', Object.assign({ value: valor }, extra || {}));
+    i.addEventListener('input', function () { onInput(i.value); mudou(); });
+    return [el('label', { class: 'f', text: rotulo }), i];
+  }
+  function selectMin(valor, opcoes, fmt, onChange) {
+    var s = el('select');
+    if (opcoes.indexOf(valor) < 0) opcoes = opcoes.concat([valor]).sort(function (a, b) { return a - b; });
+    opcoes.forEach(function (o) { s.appendChild(el('option', { value: o, text: fmt(o), selected: o === valor })); });
+    s.addEventListener('change', function () { onChange(+s.value); mudou(); render(); });
+    return s;
+  }
+  function selectDuracao(serv) {
+    var h = Math.floor(serv.dur / 60), m = serv.dur % 60;
+    var horas = el('select'), mins = el('select');
+    for (var i = 0; i <= 8; i++) horas.appendChild(el('option', { value: i, text: i + ' h', selected: i === h }));
+    [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55].concat([m]).filter(function (v, i, a) { return a.indexOf(v) === i; }).sort(function (a, b) { return a - b; })
+      .forEach(function (v) { mins.appendChild(el('option', { value: v, text: v + ' min', selected: v === m })); });
+    function upd() { var t = +horas.value * 60 + +mins.value; serv.dur = Math.max(5, t); mudou(); render(); }
+    horas.addEventListener('change', upd); mins.addEventListener('change', upd);
+    return el('div', { class: 'duas' }, [horas, mins]);
+  }
+
+  // ---------- aba Serviços ----------
+  function telaServicos() {
+    var frag = document.createDocumentFragment();
+    frag.appendChild(el('p', { class: 'hint', text: 'Toque num serviço para editar. As abas aparecem no site nesta mesma ordem.' }));
+    cfg.categories.forEach(function (cat, ci) {
+      var card = el('div', { class: 'card' });
+      var nome = el('input', { class: 'cat grow', value: cat.name, 'aria-label': 'Nome da aba' });
+      nome.addEventListener('input', function () { cat.name = nome.value; mudou(); });
+      card.appendChild(el('div', { class: 'row' }, [
+        nome,
+        el('button', { class: 'btn mini', title: 'Subir aba', text: '↑', disabled: ci === 0, onclick: function () { mover(cfg.categories, ci, -1); } }),
+        el('button', { class: 'btn mini', title: 'Descer aba', text: '↓', disabled: ci === cfg.categories.length - 1, onclick: function () { mover(cfg.categories, ci, 1); } }),
+        el('button', { class: 'btn mini perigo', title: 'Apagar aba', text: '✕', onclick: function () {
+          if (cat.services.length && !confirm('Apagar a aba "' + cat.name + '" e os ' + cat.services.length + ' serviços dela?')) return;
+          cfg.categories.splice(ci, 1); mudou(); render();
+        } }),
+      ]));
+      cat.services.forEach(function (s, si) {
+        var chave = ci + ':' + si, abertoAqui = aberto[chave];
+        var box = el('div', { class: 'serv' });
+        box.appendChild(el('div', { class: 'serv-top', onclick: function () { aberto[chave] = !abertoAqui; render(); } }, [
+          el('img', { class: 'thumb', src: s.image || '/assets/img/erica/icone.png', alt: '' }),
+          el('div', { class: 'grow' }, [el('div', { class: 'serv-nome', text: s.name || '(sem nome)' }), el('div', { class: 'serv-sub', text: brl(s.price) + ' · ' + dur(s.dur) + (s.gap ? ' + ' + dur(s.gap) + ' de intervalo' : '') })]),
+          el('span', { class: 'seta', text: abertoAqui ? '▲' : '▼' }),
+        ]));
+        if (abertoAqui) {
+          var corpo = el('div', { class: 'serv-body' });
+          campoTexto('Nome do serviço', s.name, function (v) { s.name = v; }).forEach(function (n) { corpo.appendChild(n); });
+          campoTexto('Preço (R$)', s.price, function (v) { s.price = Math.max(0, Math.round(+v || 0)); }, { type: 'number', inputmode: 'numeric', min: 0 }).forEach(function (n) { corpo.appendChild(n); });
+          corpo.appendChild(el('label', { class: 'f', text: 'Duração (aparece no site)' }));
+          corpo.appendChild(selectDuracao(s));
+          corpo.appendChild(el('label', { class: 'f', text: 'Intervalo até a próxima cliente' }));
+          corpo.appendChild(selectMin(s.gap, GAPS.slice(), function (v) { return v ? dur(v) : 'Sem intervalo'; }, function (v) { s.gap = v; }));
+          corpo.appendChild(el('p', { class: 'hint', text: 'A agenda fica ocupada por ' + dur(s.dur + s.gap) + ' quando alguém marca este serviço.' }));
+          var bFoto = el('button', { class: 'btn', text: 'Trocar foto' });
+          bFoto.addEventListener('click', function () { enviarFoto(s, bFoto); });
+          corpo.appendChild(el('div', { class: 'acoes' }, [
+            bFoto,
+            el('button', { class: 'btn', text: '↑', title: 'Subir', disabled: si === 0, onclick: function () { aberto = {}; mover(cat.services, si, -1); } }),
+            el('button', { class: 'btn', text: '↓', title: 'Descer', disabled: si === cat.services.length - 1, onclick: function () { aberto = {}; mover(cat.services, si, 1); } }),
+            el('button', { class: 'btn perigo', text: 'Remover', onclick: function () {
+              if (!confirm('Remover "' + s.name + '" do site?')) return;
+              cat.services.splice(si, 1); aberto = {}; mudou(); render();
+            } }),
+          ]));
+          box.appendChild(corpo);
+        }
+        card.appendChild(box);
+      });
+      card.appendChild(el('button', { class: 'btn add', text: '+ Adicionar serviço nesta aba', onclick: function () {
+        cat.services.push({ name: 'Novo serviço', price: 0, dur: 60, gap: 0, image: '' });
+        aberto = {}; aberto[ci + ':' + (cat.services.length - 1)] = true; mudou(); render();
+      } }));
+      frag.appendChild(card);
+    });
+    frag.appendChild(el('button', { class: 'btn add', text: '+ Nova aba', onclick: function () {
+      cfg.categories.push({ name: 'Nova aba', services: [] }); mudou(); render(); window.scrollTo(0, document.body.scrollHeight);
+    } }));
+    return frag;
+  }
+
+  // ---------- aba Horários ----------
+  function chipsHorarios(lista, onChange) {
+    var wrap = el('div');
+    var chips = el('div', { class: 'chips' });
+    lista.forEach(function (t, i) {
+      chips.appendChild(el('span', { class: 'chip' }, [t, el('button', { title: 'Tirar ' + t, text: '✕', onclick: function () { lista.splice(i, 1); onChange(); } })]));
+    });
+    wrap.appendChild(chips);
+    var novo = el('input', { type: 'time', step: 300, 'aria-label': 'Novo horário' });
+    wrap.appendChild(el('div', { class: 'novo-h' }, [novo, el('button', { class: 'btn', text: '+ Horário', onclick: function () {
+      var v = (novo.value || '').slice(0, 5);
+      if (!/^\d{2}:\d{2}$/.test(v)) { alert('Escolha um horário primeiro.'); return; }
+      if (lista.indexOf(v) < 0) { lista.push(v); lista.sort(); }
+      onChange();
+    } })]));
+    return wrap;
+  }
+  function telaHorarios() {
+    var frag = document.createDocumentFragment();
+    frag.appendChild(el('p', { class: 'hint', text: 'Horários em que as clientes podem começar um atendimento. Para fechar um horário só de um dia, basta marcar um compromisso no Google Agenda.' }));
+    ORDEM.forEach(function (d) {
+      var dia = cfg.week[d], ligado = dia.slots.length > 0;
+      var card = el('div', { class: 'card' });
+      var chk = el('input', { type: 'checkbox', checked: ligado });
+      chk.addEventListener('change', function () {
+        if (chk.checked) { dia.slots = ['08:00', '14:00']; dia.open = dia.open || '08:00'; dia.close = dia.close || '19:00'; }
+        else { dia.slots = []; }
+        mudou(); render();
+      });
+      card.appendChild(el('div', { class: 'dia' }, [el('h3', { text: DIAS[d] }), el('label', { class: 'switch', title: ligado ? 'Aberto' : 'Fechado' }, [chk, el('span')])]));
+      if (!ligado) { card.appendChild(el('p', { class: 'fechado', text: 'Fechado' })); frag.appendChild(card); return; }
+      card.appendChild(chipsHorarios(dia.slots, function () { if (!dia.slots.length) { dia.open = null; dia.close = null; } mudou(); render(); }));
+      var abre = el('input', { type: 'time', value: dia.open || '08:00' }), fecha = el('input', { type: 'time', value: dia.close || '19:00' });
+      abre.addEventListener('change', function () { dia.open = abre.value.slice(0, 5); mudou(); });
+      fecha.addEventListener('change', function () { dia.close = fecha.value.slice(0, 5); mudou(); });
+      card.appendChild(el('label', { class: 'f', text: 'Funcionamento (selo "Aberto agora")' }));
+      card.appendChild(el('div', { class: 'duas' }, [abre, fecha]));
+      frag.appendChild(card);
+    });
+
+    // datas especiais
+    var esp = el('div', { class: 'card' });
+    esp.appendChild(el('h3', { text: 'Datas especiais', style: 'margin:0 0 4px' }));
+    esp.appendChild(el('p', { class: 'hint', text: 'Para um dia específico com horários diferentes (ex.: domingo em dezembro) ou para fechar o dia inteiro.' }));
+    Object.keys(cfg.dates).sort().forEach(function (k) {
+      var d = cfg.dates[k], dt = new Date(k + 'T12:00:00');
+      var bloco = el('div', { class: 'serv', style: 'padding:12px' });
+      bloco.appendChild(el('div', { class: 'row' }, [
+        el('div', { class: 'grow' }, [el('div', { class: 'serv-nome', text: k.split('-').reverse().join('/') + ' · ' + DIAS[dt.getDay()] }), el('div', { class: 'serv-sub', text: d.closed ? 'Fechado o dia todo' : 'Horários próprios' })]),
+        el('button', { class: 'btn mini perigo', text: 'Tirar', onclick: function () { delete cfg.dates[k]; mudou(); render(); } }),
+      ]));
+      if (!d.closed) bloco.appendChild(chipsHorarios(d.slots, function () { mudou(); render(); }));
+      esp.appendChild(bloco);
+    });
+    var data = el('input', { type: 'date', 'aria-label': 'Data' });
+    var tipo = el('select', {}, [el('option', { value: 'h', text: 'Horários diferentes' }), el('option', { value: 'f', text: 'Fechar o dia' })]);
+    esp.appendChild(el('label', { class: 'f', text: 'Adicionar data' }));
+    esp.appendChild(el('div', { class: 'duas' }, [data, tipo]));
+    esp.appendChild(el('button', { class: 'btn add', text: '+ Adicionar data especial', onclick: function () {
+      if (!data.value) { alert('Escolha a data.'); return; }
+      cfg.dates[data.value] = tipo.value === 'f' ? { closed: true } : { slots: ['08:00'] };
+      mudou(); render();
+    } }));
+    frag.appendChild(esp);
+    return frag;
+  }
+
+  // ---------- aba Sinal ----------
+  function telaSinal() {
+    var dep = cfg.deposit, card = el('div', { class: 'card' });
+    card.appendChild(el('p', { class: 'hint', text: 'Valor do sinal pago por Pix para garantir o horário. Ele é abatido do total no dia.' }));
+    var ex = el('div', { class: 'exemplo' });
+    function exemplo() {
+      ex.innerHTML = '';
+      ex.appendChild(document.createTextNode('Serviços até '));
+      ex.appendChild(el('b', { text: brl(dep.limit) })); ex.appendChild(document.createTextNode(' pagam sinal de '));
+      ex.appendChild(el('b', { text: brl(dep.low) })); ex.appendChild(document.createTextNode('; acima disso, '));
+      ex.appendChild(el('b', { text: brl(dep.high) })); ex.appendChild(document.createTextNode('.'));
+    }
+    [['Sinal dos serviços mais caros (R$)', 'high'], ['Sinal dos serviços mais baratos (R$)', 'low'], ['Até que preço vale o sinal mais barato (R$)', 'limit']].forEach(function (p) {
+      campoTexto(p[0], dep[p[1]], function (v) { dep[p[1]] = Math.max(0, Math.round(+v || 0)); exemplo(); }, { type: 'number', inputmode: 'numeric', min: 0 }).forEach(function (n) { card.appendChild(n); });
+    });
+    exemplo(); card.appendChild(ex);
+    return card;
+  }
+
+  function render() {
+    var y = window.scrollY;
+    app.innerHTML = '';
+    var tabs = el('div', { class: 'tabs' });
+    [['servicos', 'Serviços'], ['horarios', 'Horários'], ['sinal', 'Sinal']].forEach(function (t) {
+      tabs.appendChild(el('button', { class: aba === t[0] ? 'on' : '', text: t[1], onclick: function () { aba = t[0]; aberto = {}; render(); window.scrollTo(0, 0); } }));
+    });
+    app.appendChild(tabs);
+    app.appendChild(aba === 'servicos' ? telaServicos() : aba === 'horarios' ? telaHorarios() : telaSinal());
+    window.scrollTo(0, y);
+  }
+
+  function sessaoExpirou() {
+    try { localStorage.removeItem(K); sessionStorage.removeItem(K); } catch (e) {}
+    sujo = false;
+    app.innerHTML = '';
+    app.appendChild(el('p', { class: 'aviso' }, ['Sua sessão expirou. ', el('a', { href: '/admin', text: 'Entre no painel de novo' }), ' e volte aqui.']));
+    barra.classList.add('hidden');
+  }
+
+  btnSalvar.addEventListener('click', function () {
+    btnSalvar.disabled = true; status('Salvando…');
+    fetch('/api/config', { method: 'PUT', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + token() }, body: JSON.stringify(cfg) })
+      .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok, s: r.status, j: j }; }); })
+      .then(function (x) {
+        if (x.s === 401) return sessaoExpirou();
+        if (!x.ok) { btnSalvar.disabled = false; return status(x.j.message || 'Não foi possível salvar.', 'erro'); }
+        cfg = x.j.config; sujo = false; render();
+        status('Salvo! O site já mostra as mudanças (pode levar até 1 minuto).', 'ok');
+      })
+      .catch(function () { btnSalvar.disabled = false; status('Sem conexão. Tente de novo.', 'erro'); });
+  });
+
+  if (!token()) {
+    app.innerHTML = '';
+    app.appendChild(el('p', { class: 'aviso' }, ['Para mexer nos ajustes, ', el('a', { href: '/admin', text: 'entre no painel' }), ' primeiro.']));
+    return;
+  }
+  fetch('/api/config?t=' + Date.now(), { cache: 'no-store' })
+    .then(function (r) { if (!r.ok) throw new Error(); return r.json(); })
+    .then(function (c) { cfg = c; barra.classList.remove('hidden'); render(); })
+    .catch(function () { app.innerHTML = ''; app.appendChild(el('p', { class: 'aviso', text: 'Não consegui carregar os ajustes. Verifique a internet e recarregue.' })); });
+})();
+</script>
+</body>
+</html>

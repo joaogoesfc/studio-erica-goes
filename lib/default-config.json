@@ -1,0 +1,272 @@
+{
+ "v": 1,
+ "categories": [
+  {
+   "name": "Cílios - Aplicação",
+   "services": [
+    {
+     "name": "Volume Brasileiro",
+     "price": 130,
+     "dur": 150,
+     "gap": 60,
+     "image": "assets/img/erica/volume-brasileiro.webp"
+    },
+    {
+     "name": "Volume Egípcio",
+     "price": 140,
+     "dur": 150,
+     "gap": 60,
+     "image": "assets/img/erica/volume-egipcio.webp"
+    },
+    {
+     "name": "Fox Eyes",
+     "price": 160,
+     "dur": 150,
+     "gap": 60,
+     "image": "assets/img/erica/fox-eyes.webp"
+    },
+    {
+     "name": "Volume Inglês",
+     "price": 150,
+     "dur": 150,
+     "gap": 60,
+     "image": "assets/img/erica/volume-ingles.webp"
+    },
+    {
+     "name": "Volume Luxo",
+     "price": 170,
+     "dur": 150,
+     "gap": 60,
+     "image": "assets/img/erica/volume-luxo.webp"
+    },
+    {
+     "name": "Efeito Sirena",
+     "price": 135,
+     "dur": 150,
+     "gap": 60,
+     "image": "assets/img/erica/efeito-sirena.webp"
+    }
+   ]
+  },
+  {
+   "name": "Cílios - Manutenção",
+   "services": [
+    {
+     "name": "Volume Brasileiro (Manutenção)",
+     "price": 80,
+     "dur": 100,
+     "gap": 60,
+     "image": "assets/img/erica/volume-brasileiro.webp"
+    },
+    {
+     "name": "Volume Egípcio (Manutenção)",
+     "price": 90,
+     "dur": 100,
+     "gap": 60,
+     "image": "assets/img/erica/volume-egipcio.webp"
+    },
+    {
+     "name": "Fox Eyes (Manutenção)",
+     "price": 100,
+     "dur": 100,
+     "gap": 60,
+     "image": "assets/img/erica/fox-eyes.webp"
+    },
+    {
+     "name": "Volume Inglês (Manutenção)",
+     "price": 95,
+     "dur": 100,
+     "gap": 60,
+     "image": "assets/img/erica/volume-ingles.webp"
+    },
+    {
+     "name": "Volume Luxo (Manutenção)",
+     "price": 100,
+     "dur": 100,
+     "gap": 60,
+     "image": "assets/img/erica/volume-luxo.webp"
+    },
+    {
+     "name": "Efeito Sirena (Manutenção)",
+     "price": 85,
+     "dur": 100,
+     "gap": 60,
+     "image": "assets/img/erica/efeito-sirena.webp"
+    },
+    {
+     "name": "Remoção de cílios",
+     "price": 20,
+     "dur": 30,
+     "gap": 0,
+     "image": "assets/img/erica/remocao-cilios.webp"
+    }
+   ]
+  },
+  {
+   "name": "Mega Volume — Técnica Capping",
+   "services": [
+    {
+     "name": "Mega Volume Brasileiro",
+     "price": 155,
+     "dur": 210,
+     "gap": 60,
+     "image": "assets/img/erica/mega-brasileiro.webp"
+    },
+    {
+     "name": "Mega Volume Egípcio",
+     "price": 165,
+     "dur": 210,
+     "gap": 60,
+     "image": "assets/img/erica/mega-egipcio.webp"
+    },
+    {
+     "name": "Mega Volume Inglês",
+     "price": 175,
+     "dur": 210,
+     "gap": 60,
+     "image": "assets/img/erica/mega-ingles.webp"
+    },
+    {
+     "name": "Mega Volume Fox Eyes",
+     "price": 185,
+     "dur": 210,
+     "gap": 60,
+     "image": "assets/img/erica/mega-fox-eyes.webp"
+    },
+    {
+     "name": "Mega Volume Luxo",
+     "price": 190,
+     "dur": 210,
+     "gap": 60,
+     "image": "assets/img/erica/mega-luxo.webp"
+    }
+   ]
+  },
+  {
+   "name": "Mega Volume — Manutenção",
+   "services": [
+    {
+     "name": "Mega Volume Brasileiro (Manutenção)",
+     "price": 100,
+     "dur": 150,
+     "gap": 60,
+     "image": "assets/img/erica/mega-brasileiro.webp"
+    },
+    {
+     "name": "Mega Volume Egípcio (Manutenção)",
+     "price": 110,
+     "dur": 150,
+     "gap": 60,
+     "image": "assets/img/erica/mega-egipcio.webp"
+    },
+    {
+     "name": "Mega Volume Inglês (Manutenção)",
+     "price": 115,
+     "dur": 150,
+     "gap": 60,
+     "image": "assets/img/erica/mega-ingles.webp"
+    },
+    {
+     "name": "Mega Volume Fox Eyes (Manutenção)",
+     "price": 120,
+     "dur": 150,
+     "gap": 60,
+     "image": "assets/img/erica/mega-fox-eyes.webp"
+    },
+    {
+     "name": "Mega Volume Luxo (Manutenção)",
+     "price": 125,
+     "dur": 150,
+     "gap": 60,
+     "image": "assets/img/erica/mega-luxo.webp"
+    }
+   ]
+  },
+  {
+   "name": "Design de sobrancelha",
+   "services": [
+    {
+     "name": "Sobrancelha simples",
+     "price": 30,
+     "dur": 30,
+     "gap": 0,
+     "image": "assets/img/erica/sobrancelha-simples.webp"
+    },
+    {
+     "name": "Sobrancelha henna",
+     "price": 40,
+     "dur": 45,
+     "gap": 0,
+     "image": "assets/img/erica/sobrancelha-henna.webp"
+    }
+   ]
+  }
+ ],
+ "week": [
+  {
+   "slots": [],
+   "open": null,
+   "close": null
+  },
+  {
+   "slots": [
+    "08:00",
+    "14:00",
+    "18:30"
+   ],
+   "open": "08:00",
+   "close": "19:00"
+  },
+  {
+   "slots": [
+    "08:00",
+    "14:00",
+    "18:30"
+   ],
+   "open": "08:00",
+   "close": "19:00"
+  },
+  {
+   "slots": [
+    "08:00",
+    "14:00",
+    "18:30"
+   ],
+   "open": "08:00",
+   "close": "19:00"
+  },
+  {
+   "slots": [
+    "08:00",
+    "14:00",
+    "18:30"
+   ],
+   "open": "08:00",
+   "close": "19:00"
+  },
+  {
+   "slots": [
+    "08:00",
+    "14:00",
+    "18:30"
+   ],
+   "open": "08:00",
+   "close": "19:00"
+  },
+  {
+   "slots": [
+    "08:00",
+    "14:00",
+    "18:30"
+   ],
+   "open": "08:00",
+   "close": "19:00"
+  }
+ ],
+ "dates": {},
+ "deposit": {
+  "low": 10,
+  "high": 30,
+  "limit": 40
+ }
+}
