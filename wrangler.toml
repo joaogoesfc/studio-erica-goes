@@ -8,7 +8,7 @@ CALENDAR_ID = "e45aff30f5f01a53b837aaac884c6e97c8870c4a60d199880a902d636f47278d@
 
 # Domínio principal. Preenchido = www e studio-erica-goes.pages.dev redirecionam pra ele.
 # Deixe vazio enquanto o domínio não estiver respondendo.
-CANONICAL_HOST = ""
+CANONICAL_HOST = "studioericagoes.com.br"
 
 # Segredos (NUNCA neste arquivo) — configurados com `npx wrangler pages secret put NOME`:
 #   GOOGLE_SERVICE_ACCOUNT_JSON  conteúdo do arquivo .json da conta de serviço do Google
